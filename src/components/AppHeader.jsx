@@ -5,7 +5,7 @@ export default function AppHeader ()  {
 
         /* Header */
         <header>
-            <h1>La mia lista di film.</h1>
+            <h1>I miei film.</h1>
         </header>
     )
 }
