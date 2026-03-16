@@ -23,44 +23,65 @@ export default function AppMain() {
 
     const [findByName, setFindByName] = useState('')
 
+    const [addNewFilm, setAddNewFilm] = useState(moviesList)
 
 
 
     useEffect(() => { //Use effect che si attiva quando cambio il valore del mio tag select
 
-      if(selectedValue === '') {
-        setFilterByGenre(moviesList)
+        if (selectedValue === '') {
+            setFilterByGenre(moviesList)
 
-      } else {
-          const filtred = moviesList.filter(item => item.genre == selectedValue)
-          /* setFilterByGenre(filtredGenre) */
-          console.log(moviesList);
-          
-   
-          setFilterByGenre(filtred)
+        } else {
+            const filtred = moviesList.filter(item => item.genre == selectedValue)
+            /* setFilterByGenre(filtredGenre) */
+            console.log(moviesList);
 
-      }
-       
+
+            setFilterByGenre(filtred)
+
+        }
+
     }, [selectedValue]) //Appiclo la logica quando questo elemento subisce dei cambiamenti.
 
     useEffect(() => {
-        if(findByName === '') {
+        if (findByName === '') {
             setFilterByGenre(moviesList)
         } else {
-            const finded = moviesList.filter( movie => movie.title.toLowerCase().includes(findByName.toLowerCase()))
+            const finded = moviesList.filter(movie => movie.title.toLowerCase().includes(findByName.toLowerCase()))
             setFilterByGenre(finded)
         }
-        
+
     }, [findByName])
 
     function getDynamicForm(e) {
         e.preventDefault()
 
+        setNewMovieTitle('')
+        setNewMovieGenre('')
+        const newFilm = [...filterByGenre, { title: newMovieTitle, genre: newMovieGenre }]
+        
+        setMoviesList(newFilm)
+        setFilterByGenre(newFilm)
 
+        console.log(newFilm);
 
-       
+        
+        
+        
+        
+        
+
     }
 
+    function getNewFilm() {
+
+
+        
+
+
+
+    }
 
 
 
@@ -81,7 +102,7 @@ export default function AppMain() {
                     <option value="Romantico">Romantico</option>
                     <option value="Azione">Azione</option>
                 </select>
-                <button disabled={newMovieTitle.length === 0 || newMovieGenre === '' ? true : false} className="btn btn-danger" type="submit">Aggiungi</button>  {/* Bottone per il submit */}
+                <button onClick={getNewFilm} disabled={newMovieTitle.length === 0 || newMovieGenre === '' ? true : false} className="btn btn-danger" type="submit">Aggiungi</button>  {/* Bottone per il submit */}
 
             </form>
 
