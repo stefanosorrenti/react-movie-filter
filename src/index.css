@@ -1,0 +1,23 @@
+/* FONTS */
+
+
+/* GENERICS */
+
+body {
+  font-family: 'Merriweather Variable', serif;
+}
+
+
+/* UTILITY */
+
+
+/*--------HEADER--------*/
+
+header {
+    background-color: rgb(66, 46, 6);
+}
+
+h1 {
+    font-size: 50px;
+    color: white;
+}

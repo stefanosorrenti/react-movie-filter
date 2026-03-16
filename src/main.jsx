@@ -1,5 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+// Supports weights 300-900
+import '@fontsource-variable/merriweather';
 import './index.css'
 import App from './App.jsx'
 
