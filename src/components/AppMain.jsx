@@ -67,25 +67,26 @@ export default function AppMain() {
     return (
 
         /* Main */
-        <main>
+        <main className="container mt-5 rounded">
 
+            <h2 className="text-black p-5 text-center">Aggiungi un film alla lista.</h2>
             {/* Add film form */}
-            <form onSubmit={getDynamicForm}>
-                <input type="text" placeholder="Aggiungi titolo" value={newMovieTitle} onChange={(e) => setNewMovieTitle(e.target.value)} /> {/* Rendo il value rattivo */}
-                <select name="add-gnre" id="add-gnre" onChange={(e) => setNewMovieGenre(e.target.value)} value={newMovieGenre}> {/* Rendo il value rattivo  */}
+            <form className="add-movies-form p-5" onSubmit={getDynamicForm}>
+                <input className="form-control" type="text" placeholder="Aggiungi titolo" value={newMovieTitle} onChange={(e) => setNewMovieTitle(e.target.value)} /> {/* Rendo il value rattivo */}
+                <select className="form-select" name="add-gnre" id="add-gnre" onChange={(e) => setNewMovieGenre(e.target.value)} value={newMovieGenre}> {/* Rendo il value rattivo  */}
                     <option value="">Seleziona genere...</option>
                     <option value="Fantascienza">Fantascienza</option>
                     <option value="Thriller">Thriller</option>
                     <option value="Romantico">Romantico</option>
                     <option value="Azione">Azione</option>
                 </select>
-                <button type="submit">Aggiungi</button>  {/* Bottone per il submit */}
+                <button className="btn btn-danger" type="submit">Aggiungi</button>  {/* Bottone per il submit */}
 
             </form>
 
             {/* Section film list */}
             <section>
-                <h2>La lista dei miei film</h2>
+                <h3>La lista dei miei film</h3>
 
                 {/* Filter select */}
                 <label htmlFor="genre">Filtra per genere</label>

@@ -5,7 +5,14 @@
 
 body {
   font-family: 'Merriweather Variable', serif;
+  background-color: rgb(55, 54, 54);
 }
+
+main {
+    background-color: white;
+}
+
+
 
 
 /* UTILITY */
@@ -20,4 +27,12 @@ header {
 h1 {
     font-size: 50px;
     color: white;
+}
+
+
+
+/*--------MAIN--------*/
+
+.add-movies-form {
+    display: flex;
 }
