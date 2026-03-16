@@ -27,7 +27,7 @@ export default function AppMain() {
     useEffect(() => { //Use effect che si attiva quando cambio il valore del mio tag select
         /* console.log(moviesList); */
         if (selectedValue === '') { //Se il mio valore equivale ad una stringa vuota (quella del filtro disattivato)
-            setMoviesList(films) //Imposto la mia variabile di stato  che renderizza in pagina come i film
+            //Imposto la mia variabile di stato  che renderizza in pagina come i film
         }
         else { //Altrimenti
             const filtredGenre = films.filter(movie => { //Filtro il mio array inziale con solo gli elementi che hanno il genere uguale al selected value
@@ -44,13 +44,20 @@ export default function AppMain() {
 
     
     function getDynamicForm(e) {
-        e.preventDefault()
+        e.preventDefault() 
 
         const newFilm = {title: newMovieTitle, genre: newMovieGenre}
         
-        const updatedList = [...moviesList, newFilm] 
+       const updatedList = [...moviesList, newFilm]
+        
+       setMoviesList(updatedList)
+        
 
-        setMoviesList(updatedList)
+        
+        
+        
+        setNewMovieTitle('')
+        setNewMovieGenre('')
     }
 
   
@@ -64,15 +71,15 @@ export default function AppMain() {
 
             {/* Add film form */}
             <form onSubmit={getDynamicForm}>
-                <input type="text" placeholder="Aggiungi titolo" value={newMovieTitle} onChange={(e) => setNewMovieTitle(e.target.value)} />
-                <select name="add-gnre" id="add-gnre" onChange={(e) => setNewMovieGenre(e.target.value)} value={newMovieGenre}>
+                <input type="text" placeholder="Aggiungi titolo" value={newMovieTitle} onChange={(e) => setNewMovieTitle(e.target.value)} /> {/* Rendo il value rattivo */}
+                <select name="add-gnre" id="add-gnre" onChange={(e) => setNewMovieGenre(e.target.value)} value={newMovieGenre}> {/* Rendo il value rattivo  */}
                     <option value="">Seleziona genere...</option>
                     <option value="Fantascienza">Fantascienza</option>
                     <option value="Thriller">Thriller</option>
                     <option value="Romantico">Romantico</option>
                     <option value="Azione">Azione</option>
                 </select>
-                <button type="submit">Aggiungi</button>
+                <button type="submit">Aggiungi</button>  {/* Bottone per il submit */}
 
             </form>
 
