@@ -30,7 +30,7 @@ export default function AppMain() {
 
       if(selectedValue === '') {
         setFilterByGenre(moviesList)
-        
+
       } else {
           const filtred = moviesList.filter(item => item.genre == selectedValue)
           /* setFilterByGenre(filtredGenre) */
@@ -43,23 +43,22 @@ export default function AppMain() {
        
     }, [selectedValue]) //Appiclo la logica quando questo elemento subisce dei cambiamenti.
 
-
+    useEffect(() => {
+        if(findByName === '') {
+            setFilterByGenre(moviesList)
+        } else {
+            const finded = moviesList.filter( movie => movie.title.toLowerCase().includes(findByName.toLowerCase()))
+            setFilterByGenre(finded)
+        }
+        
+    }, [findByName])
 
     function getDynamicForm(e) {
         e.preventDefault()
 
-        const newFilm = { title: newMovieTitle, genre: newMovieGenre }
-
-        const updatedList = [...moviesList, newFilm]
-
-        setMoviesList(updatedList)
 
 
-
-
-
-        setNewMovieTitle('')
-        setNewMovieGenre('')
+       
     }
 
 
@@ -82,7 +81,7 @@ export default function AppMain() {
                     <option value="Romantico">Romantico</option>
                     <option value="Azione">Azione</option>
                 </select>
-                <button disabled={newMovieTitle.length === 0 && true} className="btn btn-danger" type="submit">Aggiungi</button>  {/* Bottone per il submit */}
+                <button disabled={newMovieTitle.length === 0 || newMovieGenre === '' ? true : false} className="btn btn-danger" type="submit">Aggiungi</button>  {/* Bottone per il submit */}
 
             </form>
 
