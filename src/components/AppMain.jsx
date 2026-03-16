@@ -1,7 +1,7 @@
 //IMPORTS
 
-import { useState, useEffect } from "react"
-
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function AppMain() {
     //DATA
@@ -13,8 +13,9 @@ export default function AppMain() {
         { title: 'Interstellar', genre: 'Fantascienza' },
         { title: 'Pulp Fiction', genre: 'Thriller' },
     ]
+    
     const [filmList, setFilmList] = useState(films) //Variabile di stato contente i film da renderizzare
-
+    const [selectedFilm, setSelectedFilm] = useState('fantascienza')
     function prova () {
         console.log('evento successo');
         
@@ -35,20 +36,22 @@ export default function AppMain() {
                 <h2>La lista dei miei film</h2>
 
                 {/* Filter select */}
-
-                <form>
                     <label htmlFor="gener">Filtra per genere</label>
 
-                    <select name="gener" id="gener">
-                        <option onClick={prova} value="null" autoFocus>Seleziona Genere</option>
-                        <option value="Fantascienza">Fantascienza</option>
-                        <option value="Thriller">Thriller</option>
-                        <option value="Romantico">Romantico</option>
-                        <option value="Azione">Azione</option>
+                    <select value={selectedFilm} 
+                    name="gener" 
+                    id="gener"
+                    onChange={(e) => setSelectedFilm(e.target.value)}>
+                        <option value="fantascienza">Fantascienza</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="romantico">Romantico</option>
+                        <option value="azione">Azione</option>
                     </select>
 
+                    
+                {selectedFilm}
 
-                </form>
+                
 
                 {/* Film list */}
 
