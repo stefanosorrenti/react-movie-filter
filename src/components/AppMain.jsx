@@ -14,74 +14,75 @@ export default function AppMain() {
         { title: 'Pulp Fiction', genre: 'Thriller' },
     ]
 
-    const [moviesList, setMoviesList] = useState(films) //Variabile di stato contente i film da renderizzare
-    const [filterByGenre, setFilterByGenre] = useState(moviesList)
+    //USE STATES
+    const [moviesList, setMoviesList] = useState(films) //Salvo l'array in una variabile di statao il maniera tale da renderlo dinamico
+    const [filter, setFilter] = useState(moviesList) //Assegno un valore alla variabile che filtrerà tutto il render della pagina tramite il select (assegno il valore 'neutro' dell'array)
     const [selectedValue, setSelectedValue] = useState('') //Salvo in maniera dinamica il valore dell'opzione selezionata
-
-    const [newMovieTitle, setNewMovieTitle] = useState('')
-    const [newMovieGenre, setNewMovieGenre] = useState('')
-
-    const [findByName, setFindByName] = useState('')
-
-    const [addNewFilm, setAddNewFilm] = useState(moviesList)
+    const [newMovieTitle, setNewMovieTitle] = useState('') //Salvo in maniera dinamica il titolo dell'elemento aggiunto
+    const [newMovieGenre, setNewMovieGenre] = useState('') //Salvo in maniera dinamica il genere dell'elemento aggiunto
+    const [findByName, setFindByName] = useState('') //Salvo il maniera dinamica l'input del tool per cercare gli elementi tramite il titolo
 
 
 
+
+
+
+    //USE EFFECTS
     useEffect(() => { //Use effect che si attiva quando cambio il valore del mio tag select
 
-        if (selectedValue === '') {
-            setFilterByGenre(moviesList)
+        //Imposto una condizione per controllare la sua prima esecuzione
+        if (selectedValue === '') { //SE il il valore del select è vuoto
+            setFilter(moviesList) //Il mio filtro sarà uguale all'array 'neutro'
 
-        } else {
-            const filtred = moviesList.filter(item => item.genre == selectedValue)
-            /* setFilterByGenre(filtredGenre) */
+        } else { //ALTRIMENTI 
+            const filtred = moviesList.filter(item => item.genre == selectedValue) //Filtro e salvo in una variabile un nuovo array che contiene gli  elementi che hanno un la chiave title uguale al valore del select
+            /* setFilter(filtredGenre) */
             console.log(moviesList);
 
 
-            setFilterByGenre(filtred)
+            setFilter(filtred) //Imposto la mia varaibile di render uguale alla variabile filtrata di prima
 
         }
 
-    }, [selectedValue]) //Appiclo la logica quando questo elemento subisce dei cambiamenti.
+    }, [selectedValue]) //Applico la logica quando questo elemento subisce dei cambiamenti.
 
-    useEffect(() => {
-        if (findByName === '') {
-            setFilterByGenre(moviesList)
-        } else {
+    useEffect(() => { //Use effect che si attiva quando digito nell'input per cercare gli elementi dal titolo
+
+        //Imposto una condizione per controllare la sua prima esecuzione
+        if (findByName === '') { //SE l'input per cercare gli elementi è vuoto
+            setFilter(moviesList) //Il mio filtro sarà uguale all'array 'neutro'
+
+        } else { //ALTRIMENTI
+
+            //Filtro e salvo in una variabile un nuovo array che contiene gli elementi la cui chiave title incluede il carattere (valore dinamico) digitato nell'input
             const finded = moviesList.filter(movie => movie.title.toLowerCase().includes(findByName.toLowerCase()))
-            setFilterByGenre(finded)
+            setFilter(finded) //Imposto la mia varaibile di render uguale alla variabile filtrata di prima
         }
 
-    }, [findByName])
-
-    function getDynamicForm(e) {
-        e.preventDefault()
-
-        setNewMovieTitle('')
-        setNewMovieGenre('')
-        const newFilm = [...filterByGenre, { title: newMovieTitle, genre: newMovieGenre }]
-        
-        setMoviesList(newFilm)
-        setFilterByGenre(newFilm)
-
-        console.log(newFilm);
-
-        
-        
-        
-        
-        
-
-    }
-
-    function getNewFilm() {
+    }, [findByName]) //Applico la logica quando questo elemento subisce dei cambiamenti.
 
 
-        
+    //FUNCTIONS
+    function getDynamicForm(e) { //Funzione che si applica al submit del mio form, mi servirà per aggiungere degli elementi alla lista
 
+        e.preventDefault() //Blocco il comportamento naturale del mio form
+
+        setNewMovieTitle('') //Imposto il valore del campo per aggiungere il titolo del nuovo film come una stringa vuota
+        setNewMovieGenre('') //Imposto il valore del campo per aggiungere il titolo del nuovo film come una stringa vuota
+
+        //Creo un nuovo variabile che contiene un clone di del mio filtro + un nuovo oggetto che avrà le chiavi 'title' e 'genre' 
+        // uguali ai valori inseriri nei campi per aggiugnere un nuovo film
+        const newFilm = [...filter, { title: newMovieTitle, genre: newMovieGenre }]
+
+        setMoviesList(newFilm) //Ilmposto il valore del mio array neutro uguale a a newFilm
+        setFilter(newFilm) //Stesso meccanismo, l'ho impostato ad entrambi in maniera tale da non perdere il valore di new film nel caso cliccassi 
+        // il select per filter o l'input per cercare un element otramite il titolo 
+
+        /* console.log(newFilm); */
 
 
     }
+
 
 
 
@@ -92,21 +93,25 @@ export default function AppMain() {
         <main className="container mt-5 rounded">
 
             <h2 className="text-black p-5 text-center">Aggiungi un film alla lista.</h2>
-            {/* Add film form */}
-            <form className="d-flex p-5" onSubmit={getDynamicForm}>
+
+            {/* Add movies form */}
+            <form className="d-flex p-5" onSubmit={getDynamicForm}> {/* Applico la funzione al submit */}
+
                 <input className="form-control" type="text" placeholder="Aggiungi titolo" value={newMovieTitle} onChange={(e) => setNewMovieTitle(e.target.value)} /> {/* Rendo il value rattivo */}
+
                 <select className="form-select" name="add-gnre" id="add-gnre" onChange={(e) => setNewMovieGenre(e.target.value)} value={newMovieGenre}> {/* Rendo il value rattivo  */}
-                    <option value="">Seleziona genere...</option>
+                    <option autoFocus value="">Seleziona genere...</option>
                     <option value="Fantascienza">Fantascienza</option>
                     <option value="Thriller">Thriller</option>
                     <option value="Romantico">Romantico</option>
                     <option value="Azione">Azione</option>
                 </select>
-                <button onClick={getNewFilm} disabled={newMovieTitle.length === 0 || newMovieGenre === '' ? true : false} className="btn btn-danger" type="submit">Aggiungi</button>  {/* Bottone per il submit */}
 
+                {/* Bottone per il submit, si attiva solo se è stato scritto almeno un carattere ed è stato selezionato il genere */}
+                <button disabled={newMovieTitle.length === 0 || newMovieGenre === '' ? true : false} className="btn btn-danger" type="submit">Aggiungi</button>
             </form>
 
-            {/* Section film list */}
+            {/* Section movies list */}
             <section>
                 <h3 className="text-primary">La lista dei miei film</h3>
 
@@ -137,13 +142,10 @@ export default function AppMain() {
                 </div>
 
 
-
-
-
-                {/* Film list */}
+                {/* List */}
 
                 <ul className="list-group list-group-flush text-center">
-                    {filterByGenre.map((film, index) => ( //Uso il map per ciclare il mio array di oggetti.
+                    {filter.map((film, index) => ( //Uso il map per ciclare il mio array di oggetti.
 
                         //Ad ogni iterazione restituisco questo markup con le relative proprieta' 
                         <li className="list-group-item" key={index}><h4 className="my-3">Titolo: {film.title} </h4> <p>Genere: {film.genre}</p></li>
@@ -153,11 +155,9 @@ export default function AppMain() {
                     ))}
                 </ul>
 
-
-
             </section>
 
-            {selectedValue}
+
         </main>
     )
 }
