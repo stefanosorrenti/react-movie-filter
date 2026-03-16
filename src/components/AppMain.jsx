@@ -20,9 +20,9 @@ export default function AppMain() {
 
     const [newMovieTitle, setNewMovieTitle] = useState('')
     const [newMovieGenre, setNewMovieGenre] = useState('')
-    
 
-    
+
+
 
     useEffect(() => { //Use effect che si attiva quando cambio il valore del mio tag select
         /* console.log(moviesList); */
@@ -40,27 +40,27 @@ export default function AppMain() {
         }
     }, [selectedValue]) //Appiclo la logica quando questo elemento subisce dei cambiamenti.
 
-    
 
-    
+
+
     function getDynamicForm(e) {
-        e.preventDefault() 
+        e.preventDefault()
 
-        const newFilm = {title: newMovieTitle, genre: newMovieGenre}
-        
-       const updatedList = [...moviesList, newFilm]
-        
-       setMoviesList(updatedList)
-        
+        const newFilm = { title: newMovieTitle, genre: newMovieGenre }
 
-        
-        
-        
+        const updatedList = [...moviesList, newFilm]
+
+        setMoviesList(updatedList)
+
+
+
+
+
         setNewMovieTitle('')
         setNewMovieGenre('')
     }
 
-  
+
 
 
 
@@ -71,7 +71,7 @@ export default function AppMain() {
 
             <h2 className="text-black p-5 text-center">Aggiungi un film alla lista.</h2>
             {/* Add film form */}
-            <form className="add-movies-form p-5" onSubmit={getDynamicForm}>
+            <form className="d-flex p-5" onSubmit={getDynamicForm}>
                 <input className="form-control" type="text" placeholder="Aggiungi titolo" value={newMovieTitle} onChange={(e) => setNewMovieTitle(e.target.value)} /> {/* Rendo il value rattivo */}
                 <select className="form-select" name="add-gnre" id="add-gnre" onChange={(e) => setNewMovieGenre(e.target.value)} value={newMovieGenre}> {/* Rendo il value rattivo  */}
                     <option value="">Seleziona genere...</option>
@@ -86,20 +86,33 @@ export default function AppMain() {
 
             {/* Section film list */}
             <section>
-                <h3>La lista dei miei film</h3>
+                <h3 className="text-primary">La lista dei miei film</h3>
 
                 {/* Filter select */}
-                <label htmlFor="genre">Filtra per genere</label>
+                <div className="filter-tools p-3">
 
-                {/* Selected/options */}
-                {/* Ascolto quando succede qualcosa e imposto il valore dell'input di select uguale al valore dell'elemento che ha scatenato l'evento. (OPTION) */}
-                <select name="genre" id="genre" onChange={(e) => setSelectedValue(e.target.value)} value={selectedValue}>
-                    <option autoFocus value="">Nessun Filtro</option>
-                    <option value="Fantascienza">Fantascienza</option>
-                    <option value="Thriller">Thriller</option>
-                    <option value="Romantico">Romantico</option>
-                    <option value="Azione">Azione</option>
-                </select>
+
+                    <div className="find-by-gnre">
+                        {/* Selected/options */}
+                        <label htmlFor="genre">Filtra per genere: </label>
+
+                        {/* Ascolto quando succede qualcosa e imposto il valore dell'input di select uguale al valore dell'elemento che ha scatenato l'evento. (OPTION) */}
+                        <select className="form-select form-select-sm" name="genre" id="genre" onChange={(e) => setSelectedValue(e.target.value)} value={selectedValue}>
+
+
+                            <option autoFocus value="">Nessun Filtro</option>
+                            <option value="Fantascienza">Fantascienza</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Romantico">Romantico</option>
+                            <option value="Azione">Azione</option>
+
+                        </select>
+
+                    </div>
+
+                    {/* Find by name */}
+                    <input className="form-control-sm" type="text" placeholder="Cerca per nome..." />
+                </div>
 
 
 

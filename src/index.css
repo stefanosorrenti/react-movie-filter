@@ -33,6 +33,10 @@ h1 {
 
 /*--------MAIN--------*/
 
-.add-movies-form {
+/* FILM LIST */
+.filter-tools {
     display: flex;
+    
+    justify-content: space-between;
+    align-items: center;
 }
