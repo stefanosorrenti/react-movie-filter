@@ -1,3 +1,8 @@
+//IMPORTS
+
+import { useState, useEffect } from "react"
+
+
 export default function AppMain() {
     //DATA
     const films = [ //Lista di film
@@ -20,7 +25,22 @@ export default function AppMain() {
             <section>
                 <h2>La lista dei miei film</h2>
 
-                {/* FILM LIST */}
+                {/* Filter select */}
+
+                <form>
+                    <label htmlFor="gener">Filtra per genere</label>
+
+                    <select name="gener" id="gener">
+                        <option value="Fantascienza">Fantascienza</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Romantico">Romantico</option>
+                        <option value="Azione">Azione</option>
+                    </select>
+
+
+                </form>
+
+                {/* Film list */}
 
                 <ul>
                     {films.map((film, index) => ( //Uso il map per ciclare il mio array di oggetti.
