@@ -27,6 +27,7 @@ export default function AppMain() {
     useEffect(() => { //Use effect che si attiva quando cambio il valore del mio tag select
         /* console.log(moviesList); */
         if (selectedValue === '') { //Se il mio valore equivale ad una stringa vuota (quella del filtro disattivato)
+            setMoviesList(films)
             //Imposto la mia variabile di stato  che renderizza in pagina come i film
         }
         else { //Altrimenti
