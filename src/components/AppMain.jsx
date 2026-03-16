@@ -13,18 +13,35 @@ export default function AppMain() {
         { title: 'Interstellar', genre: 'Fantascienza' },
         { title: 'Pulp Fiction', genre: 'Thriller' },
     ]
-    
-    const [filmList, setFilmList] = useState(films) //Variabile di stato contente i film da renderizzare
-    const [selectedFilm, setSelectedFilm] = useState('fantascienza')
-    function prova () {
-        console.log('evento successo');
-        
-    }
 
-    useEffect(()=> {
-        console.log('Il componente è stato motnanto');
+    const [moviesList, setMoviesList] = useState(films) //Variabile di stato contente i film da renderizzare
+
+    const [selectedValue, setSelectedValue] = useState('') //Salvo in maniera dinamica il valore dell'opzione selezionata
+
+    
+    useEffect(() => { //Use effect che si attiva quando cambio il valore del mio tag select
+        console.log(moviesList);
+        if(selectedValue === '') { //Se il mio valore equivale ad una stringa vuota (quella del filtro disattivato)
+            setMoviesList(films) //Imposto la mia variabile di stato  che renderizza in pagina come i film
+        }
+        else { //Altrimenti
+            const filtredGenre = films.filter(movie => { //Filtro il mio array inziale con solo gli elementi che hanno il genere uguale al selected value
+                return movie.genre === selectedValue
+            })
+    
+            console.log(filtredGenre);
+            
+            setMoviesList(filtredGenre); //Imposto il valore della variabile di stato che renderizza uguale in pagina uguale all'array filtrato
+            
+
+        }
         
-    }, [])
+
+        
+
+    }, [selectedValue] )
+
+
 
     return (
 
@@ -36,39 +53,40 @@ export default function AppMain() {
                 <h2>La lista dei miei film</h2>
 
                 {/* Filter select */}
-                    <label htmlFor="gener">Filtra per genere</label>
+                <label htmlFor="gener">Filtra per genere</label>
 
-                    <select value={selectedFilm} 
-                    name="gener" 
-                    id="gener"
-                    onChange={(e) => setSelectedFilm(e.target.value)}>
-                        <option value="fantascienza">Fantascienza</option>
-                        <option value="thriller">Thriller</option>
-                        <option value="romantico">Romantico</option>
-                        <option value="azione">Azione</option>
-                    </select>
+                {/* Selected/options */}
+                {/* Ascolto quando succede qualcosa e imposto il valore dell'input di select uguale al valore dell'elemento che ha scatenato l'evento. (OPTION) */}
+                <select onChange={(e) => setSelectedValue(e.target.value)} value={selectedValue}>
+                    <option value="">Nessun Filtro</option>
+                    <option value="Fantascienza">Fantascienza</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Romantico">Romantico</option>
+                    <option value="Azione">Azione</option>
+                </select>
 
-                    
-                {selectedFilm}
 
-                
+
+
 
                 {/* Film list */}
 
                 <ul>
-                    {filmList.map((film, index) => ( //Uso il map per ciclare il mio array di oggetti.
+                    {moviesList.map((film, index) => ( //Uso il map per ciclare il mio array di oggetti.
 
                         //Ad ogni iterazione restituisco questo markup con le relative proprieta' 
                         <li key={index}>Titolo: {film.title}, Genere: {film.genre}</li>
 
-                        
-                        
+
+
                     ))}
                 </ul>
 
 
 
             </section>
+
+            {selectedValue}
         </main>
     )
 }
