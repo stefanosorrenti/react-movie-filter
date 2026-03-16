@@ -120,11 +120,11 @@ export default function AppMain() {
 
                 {/* Film list */}
 
-                <ul>
+                <ul className="list-group list-group-flush text-center">
                     {moviesList.map((film, index) => ( //Uso il map per ciclare il mio array di oggetti.
 
                         //Ad ogni iterazione restituisco questo markup con le relative proprieta' 
-                        <li key={index}>Titolo: {film.title}, Genere: {film.genre}</li>
+                        <li className="list-group-item" key={index}><h4 className="my-3">Titolo: {film.title} </h4> <p>Genere: {film.genre}</p></li>
 
 
 
