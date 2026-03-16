@@ -18,28 +18,46 @@ export default function AppMain() {
 
     const [selectedValue, setSelectedValue] = useState('') //Salvo in maniera dinamica il valore dell'opzione selezionata
 
-    
+    const [newMovieTitle, setNewMovieTitle] = useState('')
+    const [newMovieGenre, setNewMovieGenre] = useState('')
+
     useEffect(() => { //Use effect che si attiva quando cambio il valore del mio tag select
-        console.log(moviesList);
-        if(selectedValue === '') { //Se il mio valore equivale ad una stringa vuota (quella del filtro disattivato)
+        /* console.log(moviesList); */
+        if (selectedValue === '') { //Se il mio valore equivale ad una stringa vuota (quella del filtro disattivato)
             setMoviesList(films) //Imposto la mia variabile di stato  che renderizza in pagina come i film
         }
         else { //Altrimenti
             const filtredGenre = films.filter(movie => { //Filtro il mio array inziale con solo gli elementi che hanno il genere uguale al selected value
                 return movie.genre === selectedValue
             })
-    
+
             console.log(filtredGenre);
-            
+
             setMoviesList(filtredGenre); //Imposto il valore della variabile di stato che renderizza uguale in pagina uguale all'array filtrato
-            
 
         }
-        
+    }, [selectedValue]) //Appiclo la logica quando questo elemento subisce dei cambiamenti.
+
+    //FUNCTIONS
+
+    function getDynamicForm(e) {
+        e.preventDefault()
+        console.log(`Il titolo è ${newMovieTitle} e il genere è ${newMovieGenre}`);
+        /* console.log(moviesList); */
 
         
 
-    }, [selectedValue] )
+        const updatedList = [...moviesList, {title: newMovieTitle, genre: newMovieGenre}]
+
+
+        setMoviesList(updatedList)
+        console.log(moviesList);
+        console.log(updatedList);
+        
+        setNewMovieGenre('')
+        setNewMovieTitle('')
+
+    }
 
 
 
@@ -47,6 +65,14 @@ export default function AppMain() {
 
         /* Main */
         <main>
+
+            {/* Add film form */}
+            <form onSubmit={getDynamicForm}>
+                <input type="text" placeholder="Aggiungi titolo" value={newMovieTitle} onChange={(e) => setNewMovieTitle(e.target.value)} />
+                <input type="text" placeholder="Aggiungi il genere" value={newMovieGenre} onChange={(e) => setNewMovieGenre(e.target.value)} />
+                <button type="submit">Invia</button>
+
+            </form>
 
             {/* Section film list */}
             <section>
@@ -58,7 +84,7 @@ export default function AppMain() {
                 {/* Selected/options */}
                 {/* Ascolto quando succede qualcosa e imposto il valore dell'input di select uguale al valore dell'elemento che ha scatenato l'evento. (OPTION) */}
                 <select onChange={(e) => setSelectedValue(e.target.value)} value={selectedValue}>
-                    <option value="">Nessun Filtro</option>
+                    <option autoFocus value="">Nessun Filtro</option>
                     <option value="Fantascienza">Fantascienza</option>
                     <option value="Thriller">Thriller</option>
                     <option value="Romantico">Romantico</option>
