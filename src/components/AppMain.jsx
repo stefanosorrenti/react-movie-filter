@@ -13,8 +13,17 @@ export default function AppMain() {
         { title: 'Interstellar', genre: 'Fantascienza' },
         { title: 'Pulp Fiction', genre: 'Thriller' },
     ]
+    const [filmList, setFilmList] = useState(films) //Variabile di stato contente i film da renderizzare
 
+    function prova () {
+        console.log('evento successo');
+        
+    }
 
+    useEffect(()=> {
+        console.log('Il componente è stato motnanto');
+        
+    }, [])
 
     return (
 
@@ -31,6 +40,7 @@ export default function AppMain() {
                     <label htmlFor="gener">Filtra per genere</label>
 
                     <select name="gener" id="gener">
+                        <option onClick={prova} value="null" autoFocus>Seleziona Genere</option>
                         <option value="Fantascienza">Fantascienza</option>
                         <option value="Thriller">Thriller</option>
                         <option value="Romantico">Romantico</option>
@@ -43,7 +53,7 @@ export default function AppMain() {
                 {/* Film list */}
 
                 <ul>
-                    {films.map((film, index) => ( //Uso il map per ciclare il mio array di oggetti.
+                    {filmList.map((film, index) => ( //Uso il map per ciclare il mio array di oggetti.
 
                         //Ad ogni iterazione restituisco questo markup con le relative proprieta' 
                         <li key={index}>Titolo: {film.title}, Genere: {film.genre}</li>
